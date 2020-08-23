@@ -834,12 +834,12 @@ public class Request {
     /// - Note: When waiting for a `Request`'s `URLRequest` to be created, only the last `handler` will be called.
     ///
     /// - Parameters:
-    ///   - queue:   `DispatchQueue` on which `handler` will be called. `.main` by default.
+    ///   - queue:   `DispatchQueue` on which `handler` will be called.
     ///   - handler: Closure to be called when the cURL description is available.
     ///
     /// - Returns:           The instance.
     @discardableResult
-    public func cURLDescription(on queue: DispatchQueue = .main, calling handler: @escaping (String) -> Void) -> Self {
+    public func cURLDescription(on queue: DispatchQueue, calling handler: @escaping (String) -> Void) -> Self {
         $mutableState.write { mutableState in
             if mutableState.requests.last != nil {
                 queue.async { handler(self.cURLDescription()) }

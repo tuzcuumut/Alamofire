@@ -861,6 +861,29 @@ final class RequestCURLDescriptionTestCase: BaseTestCase {
         XCTAssertEqual(components?.last, "\"\(urlString)\"")
     }
 
+    func testGETRequestCURLDescriptionOnMainQueue() {
+        // Given
+        let urlString = "https://httpbin.org/get"
+        let expectation = self.expectation(description: "request should complete")
+        var isMainThread = false
+        var components: [String]?
+
+        // When
+        manager.request(urlString).cURLDescription(on: .main) {
+            components = self.cURLCommandComponents(from: $0)
+            isMainThread = Thread.isMainThread
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(isMainThread)
+        XCTAssertEqual(components?[0..<3], ["$", "curl", "-v"])
+        XCTAssertTrue(components?.contains("-X") == true)
+        XCTAssertEqual(components?.last, "\"\(urlString)\"")
+    }
+
     func testGETRequestCURLDescriptionSynchronous() {
         // Given
         let urlString = "https://httpbin.org/get"
