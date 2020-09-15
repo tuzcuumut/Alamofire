@@ -207,7 +207,7 @@ final class SessionTestCase: BaseTestCase {
     func testInitializerWithSpecifiedArguments() {
         // Given
         let configuration = URLSessionConfiguration.default
-        let delegate = SessionDelegate()
+        let delegate = AlamofireSessionDelegate()
         let serverTrustManager = ServerTrustManager(evaluators: [:])
 
         // When
@@ -223,7 +223,7 @@ final class SessionTestCase: BaseTestCase {
 
     func testThatSessionInitializerSucceedsWithDefaultArguments() {
         // Given
-        let delegate = SessionDelegate()
+        let delegate = AlamofireSessionDelegate()
         let underlyingQueue = DispatchQueue(label: "underlyingQueue")
         let urlSession: URLSession = {
             let configuration = URLSessionConfiguration.default
@@ -241,7 +241,7 @@ final class SessionTestCase: BaseTestCase {
 
     func testThatSessionInitializerSucceedsWithSpecifiedArguments() {
         // Given
-        let delegate = SessionDelegate()
+        let delegate = AlamofireSessionDelegate()
         let underlyingQueue = DispatchQueue(label: "underlyingQueue")
         let urlSession: URLSession = {
             let configuration = URLSessionConfiguration.default

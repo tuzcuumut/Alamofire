@@ -25,7 +25,7 @@
 import Foundation
 
 /// Class which implements the various `URLSessionDelegate` methods to connect various Alamofire features.
-open class SessionDelegate: NSObject {
+open class AlamofireSessionDelegate: NSObject {
     private let fileManager: FileManager
 
     weak var stateProvider: SessionStateProvider?
@@ -69,7 +69,7 @@ protocol SessionStateProvider: AnyObject {
 
 // MARK: URLSessionDelegate
 
-extension SessionDelegate: URLSessionDelegate {
+extension AlamofireSessionDelegate: URLSessionDelegate {
     open func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
         eventMonitor?.urlSession(session, didBecomeInvalidWithError: error)
 
@@ -79,7 +79,7 @@ extension SessionDelegate: URLSessionDelegate {
 
 // MARK: URLSessionTaskDelegate
 
-extension SessionDelegate: URLSessionTaskDelegate {
+extension AlamofireSessionDelegate: URLSessionTaskDelegate {
     /// Result of a `URLAuthenticationChallenge` evaluation.
     typealias ChallengeEvaluation = (disposition: URLSession.AuthChallengeDisposition, credential: URLCredential?, error: AFError?)
 
@@ -223,7 +223,7 @@ extension SessionDelegate: URLSessionTaskDelegate {
 
 // MARK: URLSessionDataDelegate
 
-extension SessionDelegate: URLSessionDataDelegate {
+extension AlamofireSessionDelegate: URLSessionDataDelegate {
     open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         eventMonitor?.urlSession(session, dataTask: dataTask, didReceive: data)
 
@@ -253,7 +253,7 @@ extension SessionDelegate: URLSessionDataDelegate {
 
 // MARK: URLSessionDownloadDelegate
 
-extension SessionDelegate: URLSessionDownloadDelegate {
+extension AlamofireSessionDelegate: URLSessionDownloadDelegate {
     open func urlSession(_ session: URLSession,
                          downloadTask: URLSessionDownloadTask,
                          didResumeAtOffset fileOffset: Int64,

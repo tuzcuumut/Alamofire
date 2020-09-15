@@ -39,7 +39,7 @@ open class Session {
     ///
     public let session: URLSession
     /// Instance's `SessionDelegate`, which handles the `URLSessionDelegate` methods and `Request` interaction.
-    public let delegate: SessionDelegate
+    public let delegate: AlamofireSessionDelegate
     /// Root `DispatchQueue` for all internal callbacks and state update. **MUST** be a serial queue.
     public let rootQueue: DispatchQueue
     /// Value determining whether this instance automatically calls `resume()` on all created `Request`s.
@@ -106,7 +106,7 @@ open class Session {
     ///   - eventMonitors:            Additional `EventMonitor`s used by the instance. Alamofire always adds a
     ///                               `AlamofireNotifications` `EventMonitor` to the array passed here. `[]` by default.
     public init(session: URLSession,
-                delegate: SessionDelegate,
+                delegate: AlamofireSessionDelegate,
                 rootQueue: DispatchQueue,
                 startRequestsImmediately: Bool = true,
                 requestQueue: DispatchQueue? = nil,
@@ -171,7 +171,7 @@ open class Session {
     ///   - eventMonitors:            Additional `EventMonitor`s used by the instance. Alamofire always adds a
     ///                               `AlamofireNotifications` `EventMonitor` to the array passed here. `[]` by default.
     public convenience init(configuration: URLSessionConfiguration = URLSessionConfiguration.af.default,
-                            delegate: SessionDelegate = SessionDelegate(),
+                            delegate: AlamofireSessionDelegate = AlamofireSessionDelegate(),
                             rootQueue: DispatchQueue = DispatchQueue(label: "org.alamofire.session.rootQueue"),
                             startRequestsImmediately: Bool = true,
                             requestQueue: DispatchQueue? = nil,
